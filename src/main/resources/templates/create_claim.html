@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insurance Management Platform</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Insurance Management Platform</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/claim}">Claim Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Create New Claim </h1>
+            <div class = "card-body">
+                <form th:action="@{/claim}" th:object = "${claim}" method="POST">
+                    <div class ="form-group">
+                        <label> Claim Number </label>
+                        <input
+                                type = "number"
+                                name = "claimNumber"
+                                th:field = "*{claimNumber}"
+                                class = "form-control"
+                                min="0" max="50000000"
+                                placeholder="Enter Claim Number"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <label> Claim claim Description </label>
+                        <input
+                                type = "text"
+                                name = "claimDescription"
+                                th:field = "*{claimDescription}"
+                                class = "form-control"
+                                placeholder="Enter claim Description"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <label> Claim Date </label>
+                        <input
+                                type = "date"
+                                name = "claimDate"
+                                th:field = "*{claimDate}"
+                                class = "form-control"
+                                placeholder="Enter Claim Date"
+                        />
+                    </div>
+                    <div class ="form-group">
+                        <label> Claim status </label>
+                        <input
+                                type = "text"
+                                name = "status"
+                                th:field = "*{status}"
+                                class = "form-control"
+                                placeholder="Enter claim status"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

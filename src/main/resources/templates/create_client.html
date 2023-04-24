@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Insurance Management Platform</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Insurance Management Platform</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/client}">Claim Management</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br>
+<br>
+<div class = "container">
+  <div class = "row">
+    <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+      <h1 class = "text-center"> Create New Client </h1>
+      <div class = "card-body">
+        <form th:action="@{/client}" th:object = "${clientHelper}" method="POST" id="form_id"   >
+          <div class ="form-group">
+            <label> clientName </label>
+            <!--/*@thymesVar id="getName" type=""*/-->
+            <input
+                    type = "text"
+                    name = "name"
+                    id="name"
+                    th:field = "*{name}"
+                    class = "form-control"
+                    placeholder="Enter client Name"
+            />
+          </div>
+
+          <div class ="form-group">
+            <label> client Date Of Birth </label>
+            <input
+                    type = "date"
+                    name = "dateOfBirth"
+                    id="dateOfBirth"
+                    th:field = "*{dateOfBirth}"
+                    class = "form-control"
+                    placeholder="Enter client DOB"
+            />
+          </div>
+
+          <div class ="form-group">
+            <label> Client Address </label>
+            <input
+                    type = "text"
+                    name = "address"
+                    id="address"
+                    th:field = "*{address}"
+                    class = "form-control"
+                    placeholder="Enter Client Address"
+            />
+          </div>
+          <div class ="form-group">
+            <label> Client contact </label>
+            <input
+                    id="contact"
+                    type = "tel"
+
+                    name = "contact"
+                    th:field = "*{contact}"
+                    class = "form-control"
+                    placeholder="Enter client contact"
+            />
+          </div>
+          <div id="valid_number"></div>
+
+
+          <div class = "box-footer">
+            <button id="button" type="submit" disabled class = "btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const phoneInputField = document.querySelector("#contact");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+  const info = document.querySelector(".alert-info");
+
+  // function process(event) {
+  //   event.preventDefault();
+  //
+  //   const phoneNumber = phoneInput.getNumber();
+  //
+  //   info.style.display = "";
+  //   info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+  // }
+  // function process(event) {
+  //   event.preventDefault();
+  //
+  //   const phoneNumber = phoneInput.getNumber();
+  //
+  //   info.style.display = "none";
+  //   error.style.display = "none";
+  //
+  //   if (phoneInput.isValidNumber()) {
+  //     info.style.display = "";
+  //     info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+  //   } else {
+  //     error.style.display = "";
+  //     error.innerHTML = `Invalid phone number.`;
+  //   }
+  // }
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+
+  const form = document.getElementById('form_id');
+  const field1 = document.getElementById('contact');
+  const field2 = document.getElementById('address');
+  const field3 = document.getElementById('dateOfBirth');
+  const field4 = document.getElementById('name');
+
+  const submitButton = document.getElementById('button');
+
+  // Add event listeners for input fields
+  field1.addEventListener('input', checkForm);
+  field2.addEventListener('input', checkForm);
+  field3.addEventListener('input', checkForm);
+  field4.addEventListener('input', checkForm);
+
+
+  // Function to check if all fields are filled
+  function checkForm() {
+    const valid=document.getElementById('valid_number');
+    const data=/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (field1.value == '' || field2.value == '' || field3.value == '' || field4.value == '' || (isNaN(field1.value) || !field1.value.match(data) )) {
+
+          submitButton.disabled = true;
+          return;
+    }
+    else{
+      submitButton.disabled=false;
+      return;
+    }
+
+
+
+
+
+
+  }
+</script>
+</body>
+</html>
